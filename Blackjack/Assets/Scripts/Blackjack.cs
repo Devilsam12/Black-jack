@@ -18,6 +18,9 @@ public class Blackjack : MonoBehaviour
     public Transform playerCard;
     public Transform dealerCard;
 
+    public bool canDealerHit = true;
+    public bool playerStand = false;
+
     public int playerTotal = 0;
     public int dealerTotal = 0;
 
@@ -77,7 +80,11 @@ public class Blackjack : MonoBehaviour
         if (cardPos == playerCard)
             playerTotal = total;
         else
+        {
             dealerTotal = total;
+            if (total >= 17)
+                canDealerHit = false;
+        }
     }
 
     public static List<string> GenerateDeck()
