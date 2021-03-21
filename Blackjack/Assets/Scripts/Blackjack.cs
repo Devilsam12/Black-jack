@@ -11,15 +11,15 @@ public class Blackjack : MonoBehaviour
     public static string[] values = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
     [SerializeField] GameObject cardPrefab;
-    List<string> deck;
-    [SerializeField] float xOffset = 0.1f;
+    public List<string> deck;
+    [SerializeField] float xOffset = 0.5f;
     [SerializeField] float zOffset = 0.1f;
-    [SerializeField] Transform playerCard;
-    [SerializeField] Transform dealerCard;
+    public Transform playerCard;
+    public Transform dealerCard;
 
 
-    List<GameObject> playerCards = new List<GameObject>();
-    List<GameObject> dealerCards = new List<GameObject>();
+    public List<GameObject> playerCards = new List<GameObject>();
+    public List<GameObject> dealerCards = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -38,14 +38,19 @@ public class Blackjack : MonoBehaviour
     {
         deck = GenerateDeck();
         Shuffle(deck);
-        Deal(deck.Last(), playerCard, playerCards);
+        /*Deal(deck.Last(), playerCard, playerCards);
         Deal(deck.Last(), dealerCard, dealerCards);
+        Deal(deck.Last(), dealerCard, dealerCards);
+        Deal(deck.Last(), dealerCard, dealerCards);
+        Deal(deck.Last(), playerCard, playerCards);*/
+
 
     }
 
-    private void Deal(string cardname, Transform cardPos, List<GameObject> cardList)
+    public void Deal(string cardname, Transform cardPos, List<GameObject> cardList)
     {
-        GameObject newCard = Instantiate(cardPrefab, cardPos.position, Quaternion.identity, playerCard);
+        int count = cardList.Count();
+        GameObject newCard = Instantiate(cardPrefab, new Vector3(cardPos.position.x + (xOffset * count), cardPos.position.y, cardPos.position.z - (zOffset * count)), Quaternion.identity, playerCard);
         newCard.name = cardname;
         cardList.Add(newCard);
         deck.RemoveAt(deck.Count - 1);
