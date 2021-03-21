@@ -41,6 +41,11 @@ public class Blackjack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TextUpdate();
+    }
+
+    private void TextUpdate()
+    {
         playerText.text = "Player : " + playerTotal;
         dealerText.text = "Dealer : " + dealerTotal;
     }
