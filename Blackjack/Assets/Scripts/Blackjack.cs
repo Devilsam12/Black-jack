@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Blackjack : MonoBehaviour
@@ -12,6 +14,12 @@ public class Blackjack : MonoBehaviour
     List<string> deck;
     [SerializeField] float xOffset = 0.1f;
     [SerializeField] float zOffset = 0.1f;
+    [SerializeField] Transform playerCard;
+    [SerializeField] Transform dealerCard;
+
+
+    List<GameObject> playerCards = new List<GameObject>();
+    List<GameObject> dealerCards = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -30,20 +38,17 @@ public class Blackjack : MonoBehaviour
     {
         deck = GenerateDeck();
         Shuffle(deck);
-        Deal();
+        Deal(deck.Last(), playerCard, playerCards);
+        Deal(deck.Last(), dealerCard, dealerCards);
 
     }
 
-    private void Deal()
+    private void Deal(string cardname, Transform cardPos, List<GameObject> cardList)
     {
-        foreach (var card in deck)
-        {
-            GameObject newCard = Instantiate(cardPrefab, new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z - zOffset), Quaternion.identity);
-            newCard.name = card;
-
-            xOffset += 0.5f;
-            zOffset += 0.5f;
-        }
+        GameObject newCard = Instantiate(cardPrefab, cardPos.position, Quaternion.identity, playerCard);
+        newCard.name = cardname;
+        cardList.Add(newCard);
+        deck.RemoveAt(deck.Count - 1);
     }
 
     public static List<string> GenerateDeck()
