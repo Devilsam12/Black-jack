@@ -10,13 +10,23 @@ public class UpdateCard : MonoBehaviour
     public int cardValue;
     private SpriteRenderer spriteRenderer;
     private Blackjack blackjack;
-    
+
+    private void Awake()
+    {
+        blackjack = FindObjectOfType<Blackjack>();
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        List<string> deck = Blackjack.GenerateDeck();
-        blackjack = FindObjectOfType<Blackjack>();
+        CalculateCard();
 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void CalculateCard()
+    {
+        List<string> deck = Blackjack.GenerateDeck();
         int i = 0;
         foreach (var card in deck)
         {
@@ -27,9 +37,7 @@ public class UpdateCard : MonoBehaviour
             }
             i++;
         }
-
         cardValue = (i % 13) + 1;
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame

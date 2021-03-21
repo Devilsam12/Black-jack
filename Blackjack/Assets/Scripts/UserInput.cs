@@ -17,6 +17,13 @@ public class UserInput : MonoBehaviour
 
     private void PlayerHit()
     {
+        StartCoroutine(PlayRound());   
+    }
+
+    private IEnumerator PlayRound()
+    {
         blackjack.Deal(blackjack.deck.Last(), blackjack.playerCard, blackjack.playerCards);
+        yield return new WaitForSeconds(1.5f);
+        blackjack.Deal(blackjack.deck.Last(), blackjack.dealerCard, blackjack.dealerCards);
     }
 }

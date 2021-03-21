@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Blackjack : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class Blackjack : MonoBehaviour
     [SerializeField] float zOffset = 0.1f;
     public Transform playerCard;
     public Transform dealerCard;
+
+    public int playerTotal = 0;
+    public int dealerTotal = 0;
+
+    [SerializeField] Text playerText;
+    [SerializeField] Text dealerText;
 
 
     public List<GameObject> playerCards = new List<GameObject>();
@@ -31,7 +38,8 @@ public class Blackjack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        playerText.text = "Player : " + playerTotal;
+        dealerText.text = "Dealer : " + dealerTotal;
     }
 
     void PlayCards()
@@ -54,6 +62,22 @@ public class Blackjack : MonoBehaviour
         newCard.name = cardname;
         cardList.Add(newCard);
         deck.RemoveAt(deck.Count - 1);
+        StartCoroutine(UpdateTotal(cardPos, cardList));
+    }
+
+    private IEnumerator UpdateTotal(Transform cardPos, List<GameObject> cardList)
+    {
+        yield return new WaitForEndOfFrame();
+        int total = 0;
+
+        foreach(var card in cardList)
+        {
+            total += card.GetComponent<UpdateCard>().cardValue;
+        }
+        if (cardPos == playerCard)
+            playerTotal = total;
+        else
+            dealerTotal = total;
     }
 
     public static List<string> GenerateDeck()
