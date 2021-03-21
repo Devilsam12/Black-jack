@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class UpdateCard : MonoBehaviour
 {
     public Sprite cardFace;
     public Sprite cardback;
-
+    public int cardValue;
     private SpriteRenderer spriteRenderer;
     private Blackjack blackjack;
     
@@ -27,6 +28,7 @@ public class UpdateCard : MonoBehaviour
             i++;
         }
 
+        cardValue = (i % 13) + 1;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
