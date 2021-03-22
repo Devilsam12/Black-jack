@@ -49,6 +49,13 @@ public class Blackjack : MonoBehaviour
     void Update()
     {
         TextUpdate();
+        WinCountUpdate();
+    }
+
+    private void WinCountUpdate()
+    {
+        playerWinsText.text = "PLAYER WINS : " + playerWins;
+        dealerWinsText.text = "DEALER WINS : " + dealerWins;
     }
 
     private void TextUpdate()
@@ -81,6 +88,8 @@ public class Blackjack : MonoBehaviour
             isResetEnabled = true;
             Instantiate(bustPrefab, playerCard);
             Instantiate(winPrefab, dealerCard);
+            dealerWins++;
+
             return;
         }
         if (dealerTotal > 21)
@@ -89,6 +98,7 @@ public class Blackjack : MonoBehaviour
             isResetEnabled = true;
             Instantiate(bustPrefab, dealerCard);
             Instantiate(winPrefab, playerCard);
+            playerWins++;
 
             return;
         }
@@ -102,7 +112,7 @@ public class Blackjack : MonoBehaviour
                     print("player won");
                     isResetEnabled = true;
                     Instantiate(winPrefab, playerCard);
-
+                    playerWins++;
                     return;
                 }
             }
@@ -113,6 +123,7 @@ public class Blackjack : MonoBehaviour
                     print("player won");
                     isResetEnabled = true;
                     Instantiate(winPrefab, playerCard);
+                    playerWins++;
 
                     return;
                 }
@@ -121,6 +132,7 @@ public class Blackjack : MonoBehaviour
                     print("dealer won");
                     isResetEnabled = true;
                     Instantiate(winPrefab, dealerCard);
+                    dealerWins++;
 
                     return;
                 }
@@ -139,6 +151,7 @@ public class Blackjack : MonoBehaviour
                 print("dealer wins");
                 isResetEnabled = true;
                 Instantiate(winPrefab, dealerCard);
+                dealerWins++;
 
                 return;
             }
