@@ -38,6 +38,8 @@ public class UpdateCard : MonoBehaviour
             i++;
         }
         cardValue = (i % 13) + 1;
+        if (cardValue > 10)
+            cardValue = 10;
     }
 
     // Update is called once per frame
