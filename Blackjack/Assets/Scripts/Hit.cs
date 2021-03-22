@@ -27,9 +27,7 @@ public class Hit : MonoBehaviour
         else
             btn.interactable = true;
         if (blackjack.playerStand)
-            this.GetComponentInChildren<Text>().text = "Play Next Round";
-        else
-            this.GetComponentInChildren<Text>().text = "HIT";
+            btn.interactable = false;
     }
 
     private IEnumerator PlayRound()

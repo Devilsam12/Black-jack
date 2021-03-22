@@ -207,4 +207,24 @@ public class Blackjack : MonoBehaviour
             list[n] = value;
         }
     }
+
+    public IEnumerator PlayAsDealer()
+    {
+        CheckForEnd();
+        if (isResetEnabled)
+        {
+            yield break;
+        }
+        do
+        {
+            Deal(deck.Last(), dealerCard, dealerCards);
+            yield return new WaitForSeconds(0.2f);
+            CheckForEnd();
+            if (isResetEnabled)
+            {
+                yield break;
+            }
+        }
+        while (canDealerHit);
+    }
 }

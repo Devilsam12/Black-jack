@@ -19,7 +19,7 @@ public class Stand : MonoBehaviour
     private void PlayerStand()
     {
         blackjack.playerStand = true;
-        blackjack.CheckForEnd();
+        StartCoroutine(blackjack.PlayAsDealer());
     }
 
     // Update is called once per frame
