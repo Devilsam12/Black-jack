@@ -18,19 +18,16 @@ public class Blackjack : MonoBehaviour
     public Transform playerCard;
     public Transform dealerCard;
 
-    public bool canDealerHit = true;
-    public bool playerStand = false;
-
-    public int playerTotal = 0;
-    public int dealerTotal = 0;
-
     [SerializeField] Text playerText;
     [SerializeField] Text dealerText;
 
-
+    //game states
     public List<GameObject> playerCards = new List<GameObject>();
     public List<GameObject> dealerCards = new List<GameObject>();
-
+    public int playerTotal = 0;
+    public int dealerTotal = 0;
+    public bool canDealerHit = true;
+    public bool playerStand = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,23 +47,16 @@ public class Blackjack : MonoBehaviour
         dealerText.text = "Dealer : " + dealerTotal;
     }
 
-    void PlayCards()
+    public void PlayCards()
     {
         deck = GenerateDeck();
         Shuffle(deck);
-        /*Deal(deck.Last(), playerCard, playerCards);
-        Deal(deck.Last(), dealerCard, dealerCards);
-        Deal(deck.Last(), dealerCard, dealerCards);
-        Deal(deck.Last(), dealerCard, dealerCards);
-        Deal(deck.Last(), playerCard, playerCards);*/
-
-
     }
 
     public void Deal(string cardname, Transform cardPos, List<GameObject> cardList)
     {
         int count = cardList.Count();
-        GameObject newCard = Instantiate(cardPrefab, new Vector3(cardPos.position.x + (xOffset * count), cardPos.position.y, cardPos.position.z - (zOffset * count)), Quaternion.identity, playerCard);
+        GameObject newCard = Instantiate(cardPrefab, new Vector3(cardPos.position.x + (xOffset * count), cardPos.position.y, cardPos.position.z - (zOffset * count)), Quaternion.identity, cardPos);
         newCard.name = cardname;
         cardList.Add(newCard);
         deck.RemoveAt(deck.Count - 1);
@@ -102,7 +92,6 @@ public class Blackjack : MonoBehaviour
                 newDeck.Add(suite + value);
             }
         }
-
         return newDeck;
     }
 
