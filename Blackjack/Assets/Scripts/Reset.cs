@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class Reset : MonoBehaviour
 {
     public Blackjack blackjack;
+    Button btn;
     // Start is called before the first frame update
     void Start()
     {
-        Button btn = GetComponent<Button>();
+        btn = GetComponent<Button>();
         btn.onClick.AddListener(ResetGame);
     }
 
@@ -30,7 +31,6 @@ public class Reset : MonoBehaviour
 
     private void ClearChildren(Transform transform)
     {
-        Debug.Log(transform.childCount);
         int i = 0;
 
         //Array to hold all child obj
@@ -48,8 +48,6 @@ public class Reset : MonoBehaviour
         {
             DestroyImmediate(child.gameObject);
         }
-
-        Debug.Log(transform.childCount);
     }
 
     private void ResetGameState()
@@ -60,11 +58,16 @@ public class Reset : MonoBehaviour
         blackjack.dealerTotal = 0;
         blackjack.canDealerHit = true;
         blackjack.playerStand = false;
+        blackjack.isResetEnabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!blackjack.isResetEnabled)
+            btn.interactable = false;
+        else
+            btn.interactable = true;
         
     }
 }

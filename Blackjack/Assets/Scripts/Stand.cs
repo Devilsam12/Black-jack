@@ -8,21 +8,26 @@ using UnityEngine.UI;
 public class Stand : MonoBehaviour
 {
     public Blackjack blackjack;
+    Button btn;
     // Start is called before the first frame update
     void Start()
     {
-        Button btn = GetComponent<Button>();
+        btn = GetComponent<Button>();
         btn.onClick.AddListener(PlayerStand);
     }
 
     private void PlayerStand()
     {
         blackjack.playerStand = true;
+        blackjack.CheckForEnd();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (blackjack.isResetEnabled)
+            btn.interactable = false;
+        else
+            btn.interactable = true;
     }
 }

@@ -12,15 +12,23 @@ public class Blackjack : MonoBehaviour
     public static string[] values = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
     [SerializeField] GameObject cardPrefab;
+    public GameObject bustPrefab;
+    public GameObject winPrefab;
     public List<string> deck;
     [SerializeField] float xOffset = 0.5f;
     [SerializeField] float zOffset = 0.1f;
     public Transform playerCard;
     public Transform dealerCard;
+    public int playerWins = 0;
+    public int dealerWins = 0;
+    public bool isResetEnabled = false;
+    public Button resetButton;
 
     [SerializeField] Text playerText;
     [SerializeField] Text dealerText;
-
+    [SerializeField] Text playerWinsText;
+    [SerializeField] Text dealerWinsText;
+    
     //game states
     public List<GameObject> playerCards = new List<GameObject>();
     public List<GameObject> dealerCards = new List<GameObject>();
@@ -28,6 +36,8 @@ public class Blackjack : MonoBehaviour
     public int dealerTotal = 0;
     public bool canDealerHit = true;
     public bool playerStand = false;
+    public bool playerBust = false;
+    public bool dealerBust = false;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +73,81 @@ public class Blackjack : MonoBehaviour
         StartCoroutine(UpdateTotal(cardPos, cardList));
     }
 
+    public void CheckForEnd()
+    {
+        if (playerTotal > 21)
+        {
+            print("player is bust, dealer wins");
+            isResetEnabled = true;
+            Instantiate(bustPrefab, playerCard);
+            Instantiate(winPrefab, dealerCard);
+            return;
+        }
+        if (dealerTotal > 21)
+        {
+            print("dealer is bust, player wins");
+            isResetEnabled = true;
+            Instantiate(bustPrefab, dealerCard);
+            Instantiate(winPrefab, playerCard);
+
+            return;
+        }
+
+        if(!canDealerHit)
+        {
+            if(!playerStand)
+            {
+                if(playerTotal > dealerTotal)
+                {
+                    print("player won");
+                    isResetEnabled = true;
+                    Instantiate(winPrefab, playerCard);
+
+                    return;
+                }
+            }
+            else
+            {
+                if (playerTotal > dealerTotal)
+                {
+                    print("player won");
+                    isResetEnabled = true;
+                    Instantiate(winPrefab, playerCard);
+
+                    return;
+                }
+                else if (dealerTotal > playerTotal)
+                {
+                    print("dealer won");
+                    isResetEnabled = true;
+                    Instantiate(winPrefab, dealerCard);
+
+                    return;
+                }
+            }
+            
+            //if player is stood
+            //check who is bigger
+            //bigger is winner, return
+        }
+        else
+        {
+            if (!playerStand)
+                return;
+            if (dealerTotal > playerTotal)
+            {
+                print("dealer wins");
+                isResetEnabled = true;
+                Instantiate(winPrefab, dealerCard);
+
+                return;
+            }
+        }
+
+
+
+    }
+
     private IEnumerator UpdateTotal(Transform cardPos, List<GameObject> cardList)
     {
         yield return new WaitForEndOfFrame();
@@ -80,6 +165,7 @@ public class Blackjack : MonoBehaviour
             if (total >= 17)
                 canDealerHit = false;
         }
+
     }
 
     public static List<string> GenerateDeck()

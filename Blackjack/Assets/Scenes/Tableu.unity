@@ -478,7 +478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 283, y: -182}
+  m_AnchoredPosition: {x: 232, y: -182}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876942714
@@ -743,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 285, y: -224}
+  m_AnchoredPosition: {x: 232, y: -224}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1241383791
@@ -1205,19 +1205,29 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f7b58b6ef4e8e7349a0e597f9b0dbdef, type: 3}
   - {fileID: 21300000, guid: a3916272dddce1e4e94984833c04cdbe, type: 3}
   cardPrefab: {fileID: 765726780008690516, guid: e141ea49256d1ac4699de011538e01c2, type: 3}
+  bustPrefab: {fileID: 2709613313049949051, guid: f4d9fdf8bf570f04b9f2eb571553c934, type: 3}
+  winPrefab: {fileID: 8274414765391656719, guid: 6746a425ad4f0c84daac3ca2afb022bf, type: 3}
   deck: []
   xOffset: 0.43
   zOffset: 0.1
   playerCard: {fileID: 1472693786}
   dealerCard: {fileID: 1776178996}
+  playerWins: 0
+  dealerWins: 0
+  isResetEnabled: 0
+  resetButton: {fileID: 0}
   playerText: {fileID: 609465141}
   dealerText: {fileID: 1241383791}
+  playerWinsText: {fileID: 0}
+  dealerWinsText: {fileID: 0}
   playerCards: []
   dealerCards: []
   playerTotal: 0
   dealerTotal: 0
   canDealerHit: 1
   playerStand: 0
+  playerBust: 0
+  dealerBust: 0
 --- !u!4 &1744406371
 Transform:
   m_ObjectHideFlags: 0
